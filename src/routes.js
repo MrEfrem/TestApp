@@ -2,30 +2,14 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import App from './App'
-
-if (process.env.NODE_ENV === 'development' || typeof require.ensure === 'undefined') require.ensure = (undefined, fc) => fc(require)
+import Posts from './Posts'
+import AddPost from './AddPost'
 
 export default () => ( // eslint-disable-line
   <Route component={App}>
     <Route path="/">
-      <IndexRoute
-        getComponent={
-          (location, callback) => {
-            require.ensure([], (require) => {
-              callback(null, require('./Posts').default)
-            })
-          }
-        }
-      />
-      <Route path="addPost"
-        getComponent={
-          (location, callback) => {
-            require.ensure([], (require) => {
-              callback(null, require('./AddPost').default)
-            })
-          }
-        }
-      />
+      <IndexRoute component={Posts}/>
+      <Route path="addPost" component={AddPost}/>
     </Route>
   </Route>
 )
